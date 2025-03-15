@@ -21,7 +21,7 @@ func main() {
 	t0 := time.Now()
 	var wg sync.WaitGroup
 	counter := Counter{}
-	numGoroutines := 10000
+	numGoroutines := 100
 	wg.Add(numGoroutines)
 	for range numGoroutines {
 		go func() {
