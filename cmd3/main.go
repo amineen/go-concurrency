@@ -22,6 +22,17 @@ func main() {
 		time.Sleep(time.Nanosecond * 2)
 	}()
 
+	hello := func(wg *sync.WaitGroup, id int) {
+		defer wg.Done()
+		fmt.Printf("Hello from %v!\n", id)
+	}
+
+	numGreeters := 8
+	for id := range numGreeters {
+		wg.Add(1)
+		go hello(&wg, id)
+	}
+
 	wg.Wait()
 	fmt.Println("All goroutines complete.")
 
