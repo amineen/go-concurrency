@@ -3,11 +3,15 @@ package main
 import "fmt"
 
 func main() {
-	textStream := make(chan string)
+	numberStream := make(chan int)
 
 	go func() {
-		textStream <- "Hello World"
+		defer close(numberStream)
+		for i := range 5 {
+			numberStream <- i
+		}
 	}()
-
-	fmt.Println(<-textStream)
+	for x := range numberStream {
+		fmt.Printf("Received: %d\n", x)
+	}
 }
